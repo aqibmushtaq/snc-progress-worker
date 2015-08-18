@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2015-08-18 13:08:27">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description/>
+<inserted/>
+<name>ProgressWorker</name>
+<origin_sys_id/>
+<release_date/>
+<remote_sys_id>e1b619449f0202008f97b89a442e70d7</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2015-08-18 13:08:27</sys_created_on>
+<sys_id>0f4342489f0202008f97b89a442e700e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2015-08-18 13:08:27</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_ui_script_4719d9449f0202008f97b89a442e70d1</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ui_script"&gt;&lt;sys_ui_script action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;description/&gt;&lt;global&gt;false&lt;/global&gt;&lt;name&gt;create_incident_progress&lt;/name&gt;&lt;script&gt;&lt;![CDATA[addLoadEvent(function() {
+    $("create_incidents").observe("click", function(event) {
+        event.stop();
+        
+        // (1) A GlideModal is created referring to simple_progress_viewer
+        var dd = new GlideModal("simple_progress_viewer", false, "40em", "10.5em");
+        
+        var map = getMessages(["Creating incidents", "Close", "List new incidents"]);
+        dd.setTitle(map["Creating incidents"]);
+        
+        var totalIncidents = $("total").value;
+        var prefix = $("prefix").value;
+        
+        // (2) We set the ajax script with sysparm_ajax_processor and the parameters 
+        //     all start with sysparm_ajax_processor following their name
+        dd.setPreference("sysparm_ajax_processor_total_incidents", totalIncidents);
+        dd.setPreference("sysparm_ajax_processor_prefix", prefix);
+        dd.setPreference("sysparm_ajax_processor", 'CreateIncidentAJAXProcessor');
+        
+        dd.setPreference("sysparm_renderer_progress_title", map["Creating incidents"]);
+        
+        // (3) Specify the buttons to display on completion by, all buttons are prefixed 
+        //     with sysparm_button
+        dd.setPreference("sysparm_button_new_incidents", map["List new incidents"]);
+        dd.setPreference("sysparm_button_close", map["Close"]);
+        
+        // (4) An event listener is added on executionComplete which is called 
+        //     when the progress worker is completed. A tracker object is 
+        //     passed to the event listener which contains a map of values  
+        //     which you will see in the CreateIncidentWorker Script Include below.
+        dd.on("executionComplete", function(trackerObj) {
+            // (5) Event listeners are attached to the buttons
+            var newIncidentsBtn = $("sysparm_button_new_incidents");
+            if (newIncidentsBtn) {
+                newIncidentsBtn.on('click', function() {
+                    location.href = trackerObj.result.url_new_incidents;
+                });
+            }
+            var closeBtn = $("sysparm_button_close");
+            if (closeBtn) {
+                closeBtn.on('click', function() {
+                    dd.destroy();
+                });
+            }
+            
+        });
+        
+        dd.render();
+    });
+});]]&gt;&lt;/script&gt;&lt;script_name/&gt;&lt;sys_class_name&gt;sys_ui_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-08-18 10:04:16&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;4719d9449f0202008f97b89a442e70d1&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;create_incident_progress&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ui_script_4719d9449f0202008f97b89a442e70d1&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2015-08-18 12:45:52&lt;/sys_updated_on&gt;&lt;use_scoped_format&gt;false&lt;/use_scoped_format&gt;&lt;/sys_ui_script&gt;&lt;/record_update&gt;</payload>
+<remote_update_set display_value="ProgressWorker">0f4342489f0202008f97b89a442e700e</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2015-08-18 13:08:27</sys_created_on>
+<sys_id>034342489f0202008f97b89a442e700f</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2015-08-18 13:08:27</sys_updated_on>
+<table/>
+<target_name>create_incident_progress</target_name>
+<type>UI Script</type>
+<update_domain>global</update_domain>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_include_0d56e5849f0202008f97b89a442e70ac</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.CreateIncidentAJAXProcessor&lt;/api_name&gt;&lt;client_callable&gt;true&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;CreateIncidentAJAXProcessor&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var CreateIncidentAJAXProcessor = Class.create();
+
+CreateIncidentAJAXProcessor.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+    
+    check: function() {
+        var trackerGr = new GlideRecord("sys_execution_tracker");
+        trackerGr.addQuery("source_table", "incident");
+        trackerGr.addQuery("state", "IN", "0,1");
+        trackerGr.query();
+        if (trackerGr.next())
+            return trackerGr.getUniqueValue();
+        return "";
+    },
+    
+    /**
+     * Start the Scripted Hierarchical Worker if one does not already exist
+     */
+    start: function() {
+        var trackerId = this.check();
+        if (trackerId)
+            return trackerId;
+        
+        var totalIncidents = this.getParameter("sysparm_ajax_processor_total_incidents");
+        var prefix = this.getParameter("sysparm_ajax_processor_prefix");
+        var worker = new GlideScriptedHierarchicalWorker();
+        worker.setProgressName("Creating incidents");
+        worker.setScriptIncludeName("CreateIncidentWorker");
+        worker.setScriptIncludeMethod("start");
+        worker.putMethodArg("totalIncidents", totalIncidents);
+        worker.putMethodArg("prefix", prefix);
+        worker.setBackground(true);
+        worker.start();
+        
+        return worker.getProgressID();
+    },
+    
+    type: 'CreateIncidentAJAXProcessor'
+});]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-08-18 11:05:55&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;0d56e5849f0202008f97b89a442e70ac&lt;/sys_id&gt;&lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;&lt;sys_name&gt;CreateIncidentAJAXProcessor&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_0d56e5849f0202008f97b89a442e70ac&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2015-08-18 12:44:57&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+<remote_update_set display_value="ProgressWorker">0f4342489f0202008f97b89a442e700e</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2015-08-18 13:08:27</sys_created_on>
+<sys_id>4f4342489f0202008f97b89a442e700e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2015-08-18 13:08:27</sys_updated_on>
+<table/>
+<target_name>CreateIncidentAJAXProcessor</target_name>
+<type>Script Include</type>
+<update_domain>global</update_domain>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_include_d5c729849f0202008f97b89a442e7072</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.CreateIncidentWorker&lt;/api_name&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;CreateIncidentWorker&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var CreateIncidentWorker = Class.create();
+CreateIncidentWorker.prototype = {
+    initialize: function() {
+    },
+    
+    start: function(totalIncidents, prefix) {
+        // (1) Get the execution tracker and start it with the correct max progress
+        var tracker = SNC.GlideExecutionTracker.getLastRunning();
+        tracker.setSourceTable("incident");
+        tracker.run();
+        tracker.setMaxProgressValue(totalIncidents);
+        
+        // (2) Create the incidents and update status
+        var ids = [];
+        for (var i = 0; i &lt; totalIncidents; i++) {
+            var gr = new GlideRecord("incident");
+            var incidentNumber = i + 1;
+            var shortDescription = prefix + " " + incidentNumber;
+            gr.setValue("short_description", shortDescription);
+            var id = gr.insert();
+            if (id)
+                ids.push(id);
+            tracker.incrementProgressValue();
+            var progressMsg = gs.getMessage("Created incident {0} of {1}", [incidentNumber+"", totalIncidents]);
+            tracker.updateDetailMessage(progressMsg);
+        }
+        
+        // (3) Update execution tracker result
+        var completeMsg = gs.getMessage("Completed incident creation, {0} incidents created out of {1}", [ids.length+"", totalIncidents]);
+        tracker.updateDetailMessage(completeMsg);
+        if (ids.length == totalIncidents)
+            tracker.success(gs.getMessage("The incident creation is complete"));
+        else
+            tracker.fail(gs.getMessage("The incident creation is complete with failures"));
+        
+        // (4) Generate a URL to take the user to the newly created incidents
+        var gu = new GlideURL("incident_list.do");
+        gu.set('sysparm_query', 'sys_idIN' + ids);
+        var result = {};
+		// Post URL in tracker object which is passed to the client
+        result.url_new_incidents = gu.toString(); 
+        tracker.updateResult(result);
+    },
+    
+    type: 'CreateIncidentWorker'
+};]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-08-18 11:16:12&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;d5c729849f0202008f97b89a442e7072&lt;/sys_id&gt;&lt;sys_mod_count&gt;15&lt;/sys_mod_count&gt;&lt;sys_name&gt;CreateIncidentWorker&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_d5c729849f0202008f97b89a442e7072&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2015-08-18 12:49:27&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+<remote_update_set display_value="ProgressWorker">0f4342489f0202008f97b89a442e700e</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2015-08-18 13:08:27</sys_created_on>
+<sys_id>8f4342489f0202008f97b89a442e700e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2015-08-18 13:08:27</sys_updated_on>
+<table/>
+<target_name>CreateIncidentWorker</target_name>
+<type>Script Include</type>
+<update_domain>global</update_domain>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_ui_page_f5c659449f0202008f97b89a442e7030</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ui_page"&gt;&lt;sys_ui_page action="INSERT_OR_UPDATE"&gt;&lt;category&gt;general&lt;/category&gt;&lt;client_script/&gt;&lt;description/&gt;&lt;direct&gt;false&lt;/direct&gt;&lt;endpoint/&gt;&lt;html&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null"&gt;
+
+	&lt;h1&gt;Bulk incident creator&lt;/h1&gt;
+	
+	&lt;div class="form-group col-sm-12"&gt;
+		&lt;label for="total" class="col-sm-3 control-label"&gt;Number of incidents to create&lt;/label&gt;
+		&lt;input type="text" id="total" /&gt;
+	&lt;/div&gt;
+	
+	&lt;div class="form-group col-sm-12"&gt;
+		&lt;label for="prefix" class="col-sm-3 control-label"&gt;Short description prefix&lt;/label&gt;
+		&lt;input type="text" id="prefix" /&gt;
+	&lt;/div&gt;
+	
+	&lt;div class="form-group col-sm-12"&gt;
+		&lt;button id="create_incidents" class="btn btn-primary"&gt;Create incidents&lt;/button&gt;
+	&lt;/div&gt;
+	
+	&lt;g2:evaluate var="jvar_stamp"&gt;  
+        var gr = new GlideRecord('sys_ui_script');  
+        gr.orderByDesc('sys_updated_on');  
+        gr.query();  
+        if(gr.next())
+			gr.getValue('sys_updated_on');  
+    &lt;/g2:evaluate&gt;  
+    &lt;g:requires name="create_incident_progress.jsdbx" params="cache=$[jvar_stamp]" /&gt;
+	
+&lt;/j:jelly&gt;]]&gt;&lt;/html&gt;&lt;name&gt;create_incidents&lt;/name&gt;&lt;processing_script/&gt;&lt;sys_class_name&gt;sys_ui_page&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-08-18 09:57:05&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;f5c659449f0202008f97b89a442e7030&lt;/sys_id&gt;&lt;sys_mod_count&gt;12&lt;/sys_mod_count&gt;&lt;sys_name&gt;create_incidents&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ui_page_f5c659449f0202008f97b89a442e7030&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2015-08-18 10:17:38&lt;/sys_updated_on&gt;&lt;/sys_ui_page&gt;&lt;/record_update&gt;</payload>
+<remote_update_set display_value="ProgressWorker">0f4342489f0202008f97b89a442e700e</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2015-08-18 13:08:27</sys_created_on>
+<sys_id>cf4342489f0202008f97b89a442e700e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2015-08-18 13:08:27</sys_updated_on>
+<table/>
+<target_name>create_incidents</target_name>
+<type>UI Page</type>
+<update_domain>global</update_domain>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>

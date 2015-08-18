@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+	<h1>Bulk incident creator</h1>
+	
+	<div class="form-group col-sm-12">
+		<label for="total" class="col-sm-3 control-label">Number of incidents to create</label>
+		<input type="text" id="total" />
+	</div>
+	
+	<div class="form-group col-sm-12">
+		<label for="prefix" class="col-sm-3 control-label">Short description prefix</label>
+		<input type="text" id="prefix" />
+	</div>
+	
+	<div class="form-group col-sm-12">
+		<button id="create_incidents" class="btn btn-primary">Create incidents</button>
+	</div>
+	
+	<g2:evaluate var="jvar_stamp">  
+        var gr = new GlideRecord('sys_ui_script');  
+        gr.orderByDesc('sys_updated_on');  
+        gr.query();  
+        if(gr.next())
+			gr.getValue('sys_updated_on');  
+    </g2:evaluate>  
+    <g:requires name="create_incident_progress.jsdbx" params="cache=$[jvar_stamp]" />
+	
+</j:jelly>
